@@ -1,6 +1,6 @@
-import { Client, Intents } from "discord.js";
-import * as dotenv from "dotenv";
 import { on } from "stream";
+import { Client, Intents, CacheType, Interaction } from "discord.js";
+import * as dotenv from "dotenv";
 import { buildCommand } from "./commands";
 import { once } from "events";
 
@@ -19,10 +19,19 @@ async function initialize(client: Client, token: string): Promise<string> {
   return string;
 }
 
+async function* interactionCreateEvents(client: Client) {
+  for await (const [event] of on(client, "interactionCreate")) {
+    const _event = event as Interaction<CacheType>;
+    if (_event.isCommand()) {
+      yield _event;
+    }
+  }
+}
+
 async function main() {
   await initialize(client, token!);
 
-  for await (const [interaction] of on(client, "interactionCreate")) {
+  for await (const interaction of interactionCreateEvents(client)) {
     const command = buildCommand(interaction);
     if (command != null) {
       try {
