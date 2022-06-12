@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node lib/app.js",
-    "dev": "nodemon src/index.ts",
+    "dev": "LOG_LEVEL='debug' nodemon src/index.ts | pino-pretty",
     "build:ts": "./node_modules/typescript/bin/tsc",
     "build:commands": "ts-node ./etc/deployCommands.ts"
   },
@@ -20,11 +20,12 @@
     "discord.js": "^13.8.0",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
-    "morgan": "^1.10.0",
-    "node-fetch": "^3.2.3"
+    "node-fetch": "^3.2.3",
+    "pino": "^8.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16",
+    "pino-pretty": "^8.0.0",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.3"
   }
