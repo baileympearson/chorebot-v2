@@ -3,10 +3,8 @@ import { Client, Intents, CacheType, Interaction } from "discord.js";
 import * as dotenv from "dotenv";
 import { buildCommand } from "./commands";
 import { once } from "events";
-import { pino } from "pino";
+import { logger } from "./utils";
 
-const logLevel = process.env.LOG_LEVEL ?? "info";
-const logger = pino({ level: logLevel });
 dotenv.config();
 
 const token = process.env.DISCORD_TOKEN;
